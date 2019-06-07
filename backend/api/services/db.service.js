@@ -1,17 +1,20 @@
+/* eslint-disable no-console */
 const database = require('../../config/database');
 
 const dbService = (environment, migrate) => {
   const authenticateDB = () => database.authenticate();
 
-  const dropDB = () => database.drop();
+  //const dropDB = () => database.drop();
 
   const syncDB = () => database.sync();
 
   const successfulDBStart = () => (
+    // eslint-disable-next-line no-console
     console.info('connection to the database has been established successfully')
   );
 
   const errorDBStart = (err) => (
+    // eslint-disable-next-line no-console
     console.info('unable to connect to the database:', err)
   );
 
@@ -31,7 +34,7 @@ const dbService = (environment, migrate) => {
 
   const startMigrateFalse = async () => {
     try {
-      await dropDB();
+      //await dropDB();
       await syncDB();
       successfulDBStart();
     } catch (err) {

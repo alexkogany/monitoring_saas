@@ -54,8 +54,10 @@ server.listen(config.port, () => {
     environment !== 'development' &&
     environment !== 'testing'
   ) {
+    // eslint-disable-next-line no-console
     console.error(`NODE_ENV is set to ${environment}, but only production and development are valid.`);
     process.exit(1);
   }
+  
   return DB;
 });
