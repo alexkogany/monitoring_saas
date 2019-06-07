@@ -13,6 +13,7 @@ switch (process.env.NODE_ENV) {
       connection.production.password, {
         host: connection.production.host,
         dialect: connection.production.dialect,
+        operatorsAliases: false,
         pool: {
           max: 5,
           min: 0,
@@ -28,6 +29,7 @@ switch (process.env.NODE_ENV) {
       connection.testing.password, {
         host: connection.testing.host,
         dialect: connection.testing.dialect,
+        operatorsAliases: false,
         pool: {
           max: 5,
           min: 0,
@@ -43,6 +45,7 @@ switch (process.env.NODE_ENV) {
       connection.development.password, {
         host: connection.development.host,
         dialect: connection.development.dialect,
+        operatorsAliases: false,
         pool: {
           max: 5,
           min: 0,

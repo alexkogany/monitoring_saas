@@ -6,7 +6,9 @@ const publicRoutes = {
   'GET /getuserrecords': 'UserController.getUserRecords',
   'POST /adduserrecord': 'UserController.addUserRecord',
   'POST /getuserrecordbyfield': 'UserController.getUserRecordByField',
-  'POST /addDailyActivityRecord': 'UserController.addDailyActivityRecord',
+  'POST /addDailyActivityRecord': 'dailyActivityRecordController.addDailyActivityRecord',
+  'POST /getDailyActivityRecords': 'dailyActivityRecordController.getDailyActivityRecords',
+  'POST /getDailyActivityRecordsByField': 'dailyActivityRecordController.getDailyActivityRecordsByField'
 };
 
 module.exports = publicRoutes;
