@@ -1,5 +1,5 @@
 $(function(){
     $(document).ready(function(){
-        //("active tab");
+        console.log("active tab");
     })
 });

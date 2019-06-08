@@ -1,9 +1,9 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../../config/database');
 
-const tableName = 'userrecords';
+const tableName = 'tbl_performance_records';
 
-const UserRecord = sequelize.define('UserRecord', {
+const PerformanceRecord = sequelize.define('PerformanceRecord', {
   record_id: {
     type: Sequelize.INTEGER,
     autoIncrement: true,
@@ -27,10 +27,25 @@ const UserRecord = sequelize.define('UserRecord', {
   URL: {
     type: Sequelize.STRING,
   },
-  IdleTime: {
+  Domain: {
+    type: Sequelize.STRING,
+  },
+  Hashcode: {
     type: Sequelize.INTEGER,
   },
   PageLoadTime: {
+    type: Sequelize.STRING,
+  },
+  loadEventStart: {
+    type: Sequelize.STRING,
+  },
+  loadEventEnd: {
+    type: Sequelize.STRING,
+  },
+  connectStart: {
+    type: Sequelize.STRING,
+  },
+  connectEnd: {
     type: Sequelize.STRING,
   },
   requestStart: {
@@ -45,15 +60,21 @@ const UserRecord = sequelize.define('UserRecord', {
   responseEnd: {
     type: Sequelize.STRING,
   },
+  domContentLoadedEventStart: {
+    type: Sequelize.STRING,
+  },
+  domContentLoadedEventEnd: {
+    type: Sequelize.STRING,
+  },
 }, { tableName });
 
 // eslint-disable-next-line
-UserRecord.prototype.toJSON = function () {
+PerformanceRecord.prototype.toJSON = function () {
   const values = Object.assign({}, this.get());
 
-  delete values.password;
+ 
 
   return values;
 };
 
-module.exports = UserRecord;
+module.exports = PerformanceRecord;
