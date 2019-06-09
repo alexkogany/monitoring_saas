@@ -35,6 +35,7 @@
   "dependencies": {
     "@zeit/eslint-config-node": "^0.3.0",
     "@zeit/git-hooks": "^0.1.4",
+    "ajv": "^5.0.0",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.19.0",
     "core-js": "2.6.5",
@@ -45,7 +46,7 @@
     "jsonwebtoken": "^8.5.1",
     "pg": "^7.11.0",
     "pg-hstore": "^2.3.3",
-    "sequelize": "^4.44.0"
+    "sequelize": "^5.3.0"
   },
   "devDependencies": {
     "@shinnn/eslint-config": "^6.10.4",

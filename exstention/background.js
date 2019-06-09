@@ -6,8 +6,9 @@ let remoteAPIURL = "http://127.0.0.1:2017/public/";
 
 let localIP = "";
 let remoteIP = "";
-const cUserName ;
-const cUserEmail;
+let cUserName ;
+let cUserEmail;
+let uuid;
 //let emitter = new EventEmitter();
 // getLocalIPs(function(ips) {
 
@@ -87,9 +88,7 @@ chrome.runtime.onMessage.addListener(
     }
     else if(request.message === "performance"){
       chrome.storage.local.get('cache', function(data) {
-        if (!data.cache) data.cache = {};
-        //console.log('tab' + sender.tab.id , request.timing)
-        
+        if (!data.cache) data.cache = {};       
         data.cache['tab' + sender.tab.id] = request.timing;
         chrome.storage.local.set(data);
       });
@@ -98,9 +97,17 @@ chrome.runtime.onMessage.addListener(
       
       chrome.browserAction.setBadgeText({text: request.time, tabId: sender.tab.id});
 
-      //console.log(request.timing);
+      //Get tab for receive url data
       chrome.tabs.get(sender.tab.id, function(tab){
-        console.log(tab.url);
+        //console.log(tabList);
+        //console.log(sender.tab.id);
+        if(tabList.findIndex(x => x.key === sender.tab.id)>-1){
+          tabList[tabList.findIndex(x => x.key === sender.tab.id)].username = request.timing.username;
+          console.log(request.timing.username);
+        }
+        
+        //console.log(tabList);
+
         let performance = new performanceRow(request.timing,tab.url);
             performance.userIP = localIP;
             performance.userExternalIP = remoteIP;
@@ -271,13 +278,13 @@ chrome.runtime.onInstalled.addListener(function(details){
   if(details.reason == "install"){
       console.log("This is a first install!");
       let ut = new utils();
-      let uuid = ut.uuid();
+      uuid = ut.generateUUID();
       chrome.storage.local.set({'uuid': uuid , 'version': thisVersion}, function() {
         console.log('Settings saved');
       });
 
       chrome.identity.getProfileUserInfo(function(info) {
-        console.log(info)
+        console.log(info);
         chrome.storage.local.set({'chromeuserid': info.id , 'chromeuseremail': info.email}, function() {
           console.log('Settings saved');
         });
@@ -298,11 +305,25 @@ chrome.runtime.onInstalled.addListener(function(details){
         cUserEmail = info.email;
         cUserName = info.id;
         chrome.storage.local.set({'chromeuserid': info.id , 'chromeuseremail': info.email}, function() {
-          console.log('Settings saved');
+          //console.log('Settings saved');
         });
       });  
       
+      chrome.storage.local.get('uuid', function (result) {
+        if(result==undefined || result === "")
+        {
+          let ut = new utils();
+          uuid = ut.generateUUID();
 
+          chrome.storage.local.set({'uuid': uuid , 'version': thisVersion}, function() {
+            //console.log('Settings saved');
+          });
+        }
+        else
+          uuid = result.uuid;
+
+        console.log(result.uuid);
+    });
 
       chrome.storage.local.set({'version': thisVersion}, function() {
         console.log('Version saved');

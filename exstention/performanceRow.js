@@ -2,7 +2,7 @@ class performanceRow {
     // class methods
     constructor(data,url = '') {  
         this.localdata = data;        
-        console.table(data);
+        //console.table(data);
         if(url!==''){
            
             const localurl = new URL(url);
@@ -68,7 +68,13 @@ class performanceRow {
         return this._cUserName;
     };    
 
+    set uuid(uuid) { 
+        this._uuid =  uuid;
+    };
 
+    get uuid() { 
+        return this._uuid;
+    };       
 
 
     hashcode = function(s){
@@ -107,9 +113,10 @@ class performanceRow {
                 Hashcode:this._hashcode,
                 URL:this._url,
                 domain:this._domain,
-                susername:this.username,
+                sUserName:this.localdata.username,
                 cUserName:this._cUserName,
                 cEmail:this._cEmail,
+                uuid:this._uuid,
             };
         } catch (error) {
             console.error(error);

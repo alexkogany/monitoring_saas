@@ -59,7 +59,23 @@ class activityRow {
         return this._endactivetime ;
     };
 
+    set uuid(uuid) { 
+        this._uuid =  uuid;
+    };
+
+    get uuid() { 
+        return this._uuid;
+    };
     
+    set username(username) { 
+        this._username =  username;
+    };
+
+    get username() { 
+        return this._username;
+    };   
+
+
     get hashC() { 
         return this._hashcode ;
     };
@@ -83,10 +99,12 @@ class activityRow {
     toJSON() {
         return {
             domain: this._domain,
-            url:this._url,
-            startactivetime:this._startactivetime,
-            endactivetime:this._endactivetime,
-            hashcode:this._hashcode
+            sRealURL:this._url,
+            sStartTime:this._startactivetime,
+            sEndTime:this._endactivetime,
+            uuid:this._uuid,
+            sUserName:this._username,
+            Hashcode:this._hashcode
         };
       }
 

@@ -3,20 +3,15 @@ class utils {
       //super(dateStr);
     }
 
-    uuid() {
-        function randomDigit() {
-            if (crypto && crypto.getRandomValues) {
-                var rands = new Uint8Array(1);
-                crypto.getRandomValues(rands);
-                return (rands[0] % 16).toString(16);
-            } else {
-                return ((Math.random() * 16) | 0).toString(16);
-            }
+    generateUUID() { // Public Domain/MIT
+        var d = new Date().getTime();
+        if (typeof performance !== 'undefined' && typeof performance.now === 'function'){
+            d += performance.now(); //use high-precision timer if available
         }
-        var crypto = window.crypto || window.msCrypto;
-        return 'xxxxxxxx-xxxx-4xxx-8xxx-xxxxxxxxxxxx'.replace(/x/g, randomDigit);
-    }
-    
-
-    
-  }
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+            var r = (d + Math.random() * 16) % 16 | 0;
+            d = Math.floor(d / 16);
+            return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+        });
+    }   
+}

@@ -9,7 +9,7 @@ const DailyActivity = sequelize.define('DailyActivity', {
     autoIncrement: true,
     primaryKey: true,
   },
-  sURL: {
+  sDomain: {
     type: Sequelize.STRING,
   },
   sRealURL: {
@@ -21,8 +21,14 @@ const DailyActivity = sequelize.define('DailyActivity', {
   sEndTime: {
     type: Sequelize.INTEGER,
   },
-  chromeID: {
+  uuid: {
     type: Sequelize.STRING,
+  },
+  sUserName: {
+    type: Sequelize.STRING,
+  },
+  Hashcode: {
+    type: Sequelize.INTEGER,
   },
 }, { tableName });
 
