@@ -6,6 +6,8 @@ let remoteAPIURL = "http://127.0.0.1:2017/public/";
 
 let localIP = "";
 let remoteIP = "";
+const cUserName ;
+const cUserEmail;
 //let emitter = new EventEmitter();
 // getLocalIPs(function(ips) {
 
@@ -92,6 +94,7 @@ chrome.runtime.onMessage.addListener(
         chrome.storage.local.set(data);
       });
 
+      console.log("=========performance incoming message==============");
       
       chrome.browserAction.setBadgeText({text: request.time, tabId: sender.tab.id});
 
@@ -101,6 +104,8 @@ chrome.runtime.onMessage.addListener(
         let performance = new performanceRow(request.timing,tab.url);
             performance.userIP = localIP;
             performance.userExternalIP = remoteIP;
+            performance.cUserName = cUserName;
+            performance.cUserEmail = cUserEmail;
         //debugger;
             send_performanceData2Server(performance.toJSON());
       });
@@ -244,7 +249,7 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
       }
 
       console.table(tabList);
-      chrome.tabs.executeScript(tab.ib, { file: 'inject.js'});
+      //chrome.tabs.executeScript(tab.ib, { file: 'inject.js'});
     }
 });
 
@@ -289,7 +294,9 @@ chrome.runtime.onInstalled.addListener(function(details){
       //console.log(chrome.identity);
 
       chrome.identity.getProfileUserInfo(function(info) {
-        console.log(info)
+        //console.log(info)
+        cUserEmail = info.email;
+        cUserName = info.id;
         chrome.storage.local.set({'chromeuserid': info.id , 'chromeuseremail': info.email}, function() {
           console.log('Settings saved');
         });

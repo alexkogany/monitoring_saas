@@ -81,15 +81,6 @@ class activityRow {
     }
 
     toJSON() {
-        // console.log("=======================================================")
-        // return Object.getOwnPropertyNames(this).reduce((a, b) => {
-        //   console.log(a);
-        //   console.log(b);
-        //   a[b] = this[b];
-        //   console.log("=======================================================")
-        //   return a;
-
-        // }, {});
         return {
             domain: this._domain,
             url:this._url,

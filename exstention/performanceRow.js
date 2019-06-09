@@ -2,7 +2,7 @@ class performanceRow {
     // class methods
     constructor(data,url = '') {  
         this.localdata = data;        
-
+        console.table(data);
         if(url!==''){
            
             const localurl = new URL(url);
@@ -52,6 +52,22 @@ class performanceRow {
     };
 
 
+    set cUserEmail(cEmail) { 
+        this._cEmail =  cEmail;
+    };
+
+    get cUserEmail() { 
+        return this._cEmail ;
+    };
+
+    set cUserName(cUserName) { 
+        this._cUserName =  cUserName;
+    };
+
+    get cUserName() { 
+        return this._cUserName;
+    };    
+
 
 
 
@@ -91,35 +107,13 @@ class performanceRow {
                 Hashcode:this._hashcode,
                 URL:this._url,
                 domain:this._domain,
+                susername:this.username,
+                cUserName:this._cUserName,
+                cEmail:this._cEmail,
             };
         } catch (error) {
             console.error(error);
         }
         
     }
-
-
-    //toJSON() {
-       
-        // return {
-        //     connectStart: this.localdata.connectStart,
-        //     connectEnd:this.localdata.connectEnd,
-        //     requestStart:this.localdata.requestStart,
-        //     requestEnd:0,
-        //     responseStart:this.localdata.responseStart,
-        //     responseEnd:this.localdata.responseEnd,
-        //     domContentLoadedEventStart:this.localdata.domContentLoadedEventStart,
-        //     domContentLoadedEventEnd:this.localdata.domContentLoadedEventEnd,
-        //     loadEventStart:this.localdata.loadEventStart,
-        //     loadEventEnd:this.localdata.loadEventEnd,
-        //     loadEventEnd:this.localdata.loadEventEnd,
-        //     PageLoadTime:this.localdata.duration,
-        //     Hashcode = this._hashcode,
-        //     URL = this._url,
-        //     domain = this._domain,
-        //     userExternalIP = this._externalIP,
-        //     userIP = this._ip
-        // };
-    //}
-
 }
