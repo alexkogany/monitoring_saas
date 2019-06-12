@@ -1,41 +1,37 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../../config/database');
 
-const tableName = 'tbl_daily_activity';
+const tableName = 'tbl_organization';
 
-const DailyActivity = sequelize.define('DailyActivity', {
+const OrganizationToken = sequelize.define('Organization', {
   record_id: {
     type: Sequelize.INTEGER,
     autoIncrement: true,
     primaryKey: true,
   },
-  sDomain: {
+  OrganizationID: {
     type: Sequelize.STRING,
   },
-  sRealURL: {
+  OrganizationName: {
     type: Sequelize.STRING,
   },
-  sStartTime: {
-    type: Sequelize.INTEGER,
-  },
-  sEndTime: {
-    type: Sequelize.INTEGER,
-  },
-  uuid: {
+  OrganizationEmail: {
     type: Sequelize.STRING,
   },
-  sUserName: {
-    type: Sequelize.STRING,
+  Enable: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: true
   },
-  Hashcode: {
-    type: Sequelize.INTEGER,
+  CreateDate: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: Sequelize.NOW
   },
 }, { tableName });
 
 // eslint-disable-next-line
-DailyActivity.prototype.toJSON = function () {
+Organization.prototype.toJSON = function () {
   const values = Object.assign({}, this.get()); 
   return values;
 };
 
-module.exports = DailyActivity;
+module.exports = Organization;
