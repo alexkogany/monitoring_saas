@@ -9,8 +9,8 @@ const publicRoutes = {
   'POST /getDailyActivityRecordsByField': 'dailyActivityRecordController.getDailyActivityRecordsByField',
   'POST /addperformanceRecord': 'performanceController.addperformanceRecord',
   'POST /getperformanceRecords': 'performanceController.getperformanceRecords',
-  'POST /getperformanceRecordsByField': 'performanceController.getperformanceRecordsByField',
   'POST /getperformanceRecordsByField': 'performanceController.getperformanceRecordsByField'
+
 };
 
 module.exports = publicRoutes;

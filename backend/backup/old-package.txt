@@ -17,8 +17,9 @@
     "dev": "cross-env NODE_ENV=development node ./api/api.js",
     "nodemon": "nodemon --exec npm run dev",
     "prepush": "npm test",
+    "pretest": "npm run lint",
     "production": "cross-env NODE_ENV=production node ./api/api.js",
-    "test": "cross-env NODE_ENV=testing jest --coverage",
+    "test": "npm run create-sqlite-db; cross-env NODE_ENV=testing jest --coverage;",
     "test-ci": "jest --coverage --forceExit"
   },
   "jest": {

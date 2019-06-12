@@ -25,8 +25,6 @@ const app = express();
 const server = http.Server(app);
 const mappedOpenRoutes = mapRoutes(config.publicRoutes, 'api/controllers/');
 const mappedAuthRoutes = mapRoutes(config.privateRoutes, 'api/controllers/');
-const mappedTokenRoutes = mapRoutes(config.tokenRoutes, 'api/controllers/');
-
 const DB = dbService(environment, config.migrate).start();
 
 // allow cross origin requests
@@ -50,8 +48,6 @@ app.all('/private/*', (req, res, next) => auth(req, res, next));
 // fill routes for express application
 app.use('/public', mappedOpenRoutes);
 app.use('/private', mappedAuthRoutes);
-app.use('/auth', mappedTokenRoutes);
-app.use('/site', express.static('site'));
 
 server.listen(config.port, () => {
   if (environment !== 'production' &&
