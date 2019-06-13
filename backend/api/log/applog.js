@@ -28,10 +28,12 @@ var winstonConf = require('winston-config');
 //     exitOnError: false, // do not exit on handled exceptions
 //   });
 
-function winston_logger() {
+function winston_logger(callback) {
     //console.log("test");
-    winstonConf.fromFile(__dirname + '\winston-config.json',(error, winston) => {
-        console.log(error);       
+    winstonConf.fromFile(__dirname + '/winston-config.json',(error, winston) => {
+        //console.log(winston);       
+        //console.log(error);
+        callback(winston);
     });
     
 }

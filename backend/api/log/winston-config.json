@@ -1,11 +1,7 @@
 {
     "logging": {
-      "application": {
-        "console": {
-          "level": "info",
-          "colorize": true
-        },
-        "file": {
+      "application": {       
+        "file": {         
           "timestamp": true,
           "json": false,
           "filename": "logs/app.log",

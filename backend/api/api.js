@@ -39,8 +39,19 @@ const DB = dbService(environment, config.migrate).start();
 // allow cross origin requests
 // configure to only allow requests from certain origins
 //logger.info('LOGMESSAGE');
-var my_obj_instance = new logger.winston();
-my_obj_instance.appLogger.info('LOGMESSAGE');
+var localloger;
+var my_obj_instance = new logger.winston((variable1)=>{
+    //console.log(variable1);
+    //localloger = variable1;
+   global.logger = variable1;
+
+   variable1.loggers.get('application').info('LOGMESSAGE');
+   variable1.loggers.get('http').info('HTTPMESSAGE');
+   
+});
+//var test = my_obj_instance.appLogger;
+
+//.info('LOGMESSAGE');
 
 
 var logDirectory = path.join(__dirname, 'logs')
