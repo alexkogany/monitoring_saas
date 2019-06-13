@@ -7,6 +7,12 @@ const helmet = require('helmet');
 const http = require('http');
 const mapRoutes = require('express-routes-mapper');
 const cors = require('cors');
+var request_logger_morgan = require('morgan');
+var fs = require('fs')
+var rfs = require('rotating-file-stream')
+var path = require('path')
+
+
 
 /**
  * server configuration
@@ -14,6 +20,7 @@ const cors = require('cors');
 const config = require('../config/');
 const dbService = require('./services/db.service');
 const auth = require('./policies/auth.policy');
+var logger = require("./log/applog")
 
 // environment: development, staging, testing, production
 const environment = process.env.NODE_ENV;
@@ -31,7 +38,20 @@ const DB = dbService(environment, config.migrate).start();
 
 // allow cross origin requests
 // configure to only allow requests from certain origins
-app.use(cors());
+//logger.info('LOGMESSAGE');
+var my_obj_instance = new logger.winston();
+my_obj_instance.appLogger.info('LOGMESSAGE');
+
+
+var logDirectory = path.join(__dirname, 'logs')
+fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory)
+var accessLogStream = rfs('access.log', {
+  interval: '1d', // rotate daily
+  path: logDirectory
+})
+
+
+app.use([cors(),request_logger_morgan('combined',{ stream:accessLogStream})]);
 
 // secure express app
 app.use(helmet({
