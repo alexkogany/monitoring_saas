@@ -1,4 +1,5 @@
 const tokenRoutes = {
+    'GET /getAdminAuthURL': 'tokenController.getGoogleAuthURL',
     'GET /back': 'tokenController.receiveGoogleToken',
     'GET /back/:orgid': 'tokenController.receiveGoogleToken',    
     'POST /back': 'tokenController.receiveGoogleToken',

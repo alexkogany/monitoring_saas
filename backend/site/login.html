@@ -1,6 +1,21 @@
 <body>
-    <a href="javascript:poptastic('https://accounts.google.com/o/oauth2/auth?scope=https://www.google.com/m8/feeds&client_id=21302922996.apps.googleusercontent.com&redirect_uri=https://www.example.com/back&response_type=token');">Try
-    out that example URL now</a>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {          
+          $.ajax({
+            type: "GET",
+            url: "https://app.ycell.net/auth/getAdminAuthURL",
+            success: function(data) {
+            //window.close();; 
+                
+                $("#w3s").attr("href", "javascript:poptastic('" + data.redirect_url + "');");
+            }
+          });
+        });
+    </script>
+    <!--<a id="w3s" href="javascript:poptastic('https://accounts.google.com/o/oauth2/auth?scope=https://www.google.com/m8/feeds&client_id=21302922996.apps.googleusercontent.com&redirect_uri=https://www.example.com/back&response_type=token');">Try
+    out that example URL now</a>-->
+    <a id="w3s" href="">Try now</a>
 <script>
     function poptastic(url) {
       var newWindow = window.open(url, 'name', 'height=600,width=450');

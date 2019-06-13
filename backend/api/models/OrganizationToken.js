@@ -12,11 +12,14 @@ const OrganizationToken = sequelize.define('OrganizationToken', {
   OrganizationToken: {
     type: Sequelize.STRING,
   },
+  OrganizationRefreshToken: {
+    type: Sequelize.STRING,
+  },
   OrganizationID: {
     type: Sequelize.STRING,
   },
   Scope: {
-    type: Sequelize.STRING,
+    type: Sequelize.STRING(1000),
   },
   ReceivedTime: {
     type: Sequelize.DATE,

@@ -1,0 +1,47 @@
+<body>
+	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+    <script>
+   	//const urlParams = new URLSearchParams(window.location.search);
+        //const myParam = urlParams.get('myParam');
+	
+var hash = window.location.hash.substr(1);
+
+
+
+
+$(document).ready(function() {
+
+	/*var result = hash.split('&').reduce(function (result, item) {
+		var parts = item.split('=');
+		result[parts[0]] = parts[1];
+		//alert(parts[0] + " " + parts[1]);
+		return result;
+	}, {});*/
+
+	const urlParams = new URLSearchParams(window.location.search);
+	const code = urlParams.get('code');
+	const scope = urlParams.get('scope');
+	const state = urlParams.get('state');
+
+	let result = {};
+	result.access_token = code;
+	result.scope = scope;
+	result.expires_in = 0;
+	result.state = state;
+		
+
+	console.log(result);
+
+	$.ajax({
+	  type: "POST",
+	  contentType: "application/json",
+	  url: "https://app.ycell.net/auth/back",
+	  data: JSON.stringify(result),
+	  success: function(data) {
+		//window.close();; 
+      }
+	});
+});
+
+    </script>
+</body>
