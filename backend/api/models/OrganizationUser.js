@@ -9,27 +9,61 @@ const OrganizationUser = sequelize.define('OrganizationUser', {
     autoIncrement: true,
     primaryKey: true,
   },
+  googleID: {
+    type: Sequelize.STRING,
+  },
+  googleetag: {
+    type: Sequelize.STRING,
+  },
   OrganizationID: {
     type: Sequelize.STRING,
   },
   UserEmail: {
     type: Sequelize.STRING,
   },
-  UserPassword: {
+  Name: {
     type: Sequelize.STRING,
   },
-  Enable: {
+  FamilyName: {
+    type: Sequelize.STRING,
+  },
+  FullName: {
+    type: Sequelize.STRING,
+  },
+  IsAdmin: {
     type: Sequelize.BOOLEAN,
-    defaultValue: true
+  },
+  LastGoogleLoginTime: {
+    type: Sequelize.DATE,
+    defaultValue: Sequelize.NOW
+  },
+  CreationGoogleLoginTime: {
+    type: Sequelize.DATE,
+    defaultValue: Sequelize.NOW
+  },
+  GoogleSuspended: {
+    type: Sequelize.BOOLEAN,
+  },
+  GoogleGender: {
+    type: Sequelize.STRING,
+  },
+  GoogleCustomerID: {
+    type: Sequelize.STRING,
+  },
+  ipWhitelisted: {
+    type: Sequelize.BOOLEAN,
+  },
+  Enable: {
+    type: Sequelize.BOOLEAN
   },
   CreateDate: {
-    type: Sequelize.BOOLEAN,
+    type: Sequelize.DATE,
     defaultValue: Sequelize.NOW
   },
 }, { tableName });
 
 // eslint-disable-next-line
-Organization.prototype.toJSON = function () {
+OrganizationUser.prototype.toJSON = function () {
   const values = Object.assign({}, this.get()); 
   return values;
 };

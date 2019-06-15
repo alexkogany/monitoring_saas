@@ -11,6 +11,7 @@ var request_logger_morgan = require('morgan');
 var fs = require('fs')
 var rfs = require('rotating-file-stream')
 var path = require('path')
+var jobsD = require('./job/defineJobs')
 
 
 
@@ -21,6 +22,8 @@ const config = require('../config/');
 const dbService = require('./services/db.service');
 const auth = require('./policies/auth.policy');
 var logger = require("./log/applog")
+
+jobsD.runAllJobs();
 
 // environment: development, staging, testing, production
 const environment = process.env.NODE_ENV;
