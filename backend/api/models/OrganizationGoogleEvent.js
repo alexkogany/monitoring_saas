@@ -9,23 +9,41 @@ const OrganizationGoogleEvent = sequelize.define('OrganizationGoogleEvent', {
     autoIncrement: true,
     primaryKey: true,
   },
-  OrganizationID: {
+  kind: {
     type: Sequelize.STRING,
   },
-  OrganizationName: {
-    type: Sequelize.STRING,
-  },
-  OrganizationEmail: {
-    type: Sequelize.STRING,
-  },
-  Enable: {
-    type: Sequelize.BOOLEAN,
-    defaultValue: true
-  },
-  CreateDate: {
-    type: Sequelize.BOOLEAN,
+  eventTime: {
+    type: Sequelize.DATE,
     defaultValue: Sequelize.NOW
   },
+  eventuniqueQualifier: {
+    type: Sequelize.STRING
+  },
+  eventApplicationName: {
+    type: Sequelize.STRING,
+  },
+  eventCustomerID: {
+    type: Sequelize.STRING,
+  },
+  eventActorEmail: {
+    type: Sequelize.STRING
+  },
+  eventActorProfileID: {
+    type: Sequelize.STRING
+  },
+  eventIPAddress: {
+    type: Sequelize.STRING
+  },
+  eventType: {
+    type: Sequelize.STRING
+  },
+  eventName: {
+    type: Sequelize.STRING
+  },
+  createDate: {
+    type: Sequelize.DATE,
+    defaultValue: Sequelize.NOW
+  }
 }, { tableName });
 
 // eslint-disable-next-line

@@ -20,7 +20,7 @@ switch (process.env.NODE_ENV) {
           idle: 10000,
         },
         logging: function (str) {
-          console.log(str);
+          //console.log(str);
         },
       },
     );
@@ -39,7 +39,7 @@ switch (process.env.NODE_ENV) {
           idle: 10000,
         },
         logging: function (str) {
-          console.log(str);
+          //console.log(str);
         },
       },
     );
@@ -58,7 +58,7 @@ switch (process.env.NODE_ENV) {
           idle: 10000,
         },
         logging: function (str) {
-          console.log(str);
+          //console.log(str);
         },
         storage: path.join(process.cwd(), 'db', 'database.sqlite'),
       },

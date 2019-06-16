@@ -36,6 +36,8 @@ const renewtoken = () =>{
                         org[0].update({
                             OrganizationToken: tokens.access_token
                         })
+
+                        global.logger.loggers.get('application').info('Update google token.');
                     }
 
                     // expected output: "foo"
