@@ -22,7 +22,7 @@ $(function(){
 
         const url = new URL(window.location);
         const domain = url.hostname;
-
+       
         if(domain.indexOf("google")>1)
             username = document.querySelector(".gb_db").textContent;
                 //console.log(document.querySelector(".gb_db").textContent);

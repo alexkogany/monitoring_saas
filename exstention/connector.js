@@ -22,7 +22,11 @@ function connector() {
     
     this.send=function (url , data)
     {
-        console.log(data);
+        console.groupCollapsed("send data 2 server")
+            console.log(url);
+            console.log(data);
+        console.groupEnd();
+        
         postData(url , data)
         .then(data => console.log(JSON.stringify(data))) // JSON-string from `response.json()` call
         .catch(error => console.error(error));

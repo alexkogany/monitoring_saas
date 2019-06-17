@@ -1,6 +1,6 @@
 class performanceRow {
     // class methods
-    constructor(data,url = '') {  
+    constructor(data,uuid ='',url = '') {  
         this.localdata = data;        
         //console.table(data);
         if(url!==''){
@@ -11,6 +11,14 @@ class performanceRow {
             this._url = encodeURI(url);            
             this._hashcode =this.hashcode(url);
         }
+
+        if(uuid!=='')
+            this._uuid = uuid;
+        else
+            chrome.storage.local.get('uuid', function (result) {
+                this._uuid = result.uuid;
+                //console.log("uuid->" + this._uuid);
+            });
     }
     
 

@@ -8,7 +8,7 @@ var job4 = require('./jobs/jobGetLicense');
 //const importModules = require('import-modules');
 
 const runAllJobs = () => {
-    var j = schedule.scheduleJob('*/10 * * * *', function(){
+    var j = schedule.scheduleJob('*/1 * * * *', function(){
         //console.log('Today is recognized by Rebecca Black!');
         job1.runjob();
       });
@@ -24,7 +24,7 @@ const runAllJobs = () => {
         j.runjob();
       });  
 
-    var k = schedule.scheduleJob('*/1 * * * *', function(){
+    var k = schedule.scheduleJob('*/10 * * * *', function(){
         //console.log('Today is recognized by Rebecca Black!');
         var j = new job4();
         j.runjob();

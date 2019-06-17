@@ -2,13 +2,14 @@
 var tabList = [];
 var tabPerformanceData = [];
 let lastActiveTabID = 0;
-let remoteAPIURL = "http://127.0.0.1:2017/public/";
+let remoteAPIURL = "http://app.ycell.net/public/";
 
 let localIP = "";
 let remoteIP = "";
 let cUserName ;
 let cUserEmail;
 let uuid;
+
 //let emitter = new EventEmitter();
 // getLocalIPs(function(ips) {
 
@@ -93,7 +94,7 @@ chrome.runtime.onMessage.addListener(
         chrome.storage.local.set(data);
       });
 
-      console.log("=========performance incoming message==============");
+
       
       chrome.browserAction.setBadgeText({text: request.time, tabId: sender.tab.id});
 
@@ -103,22 +104,58 @@ chrome.runtime.onMessage.addListener(
         //console.log(sender.tab.id);
         if(tabList.findIndex(x => x.key === sender.tab.id)>-1){
           tabList[tabList.findIndex(x => x.key === sender.tab.id)].username = request.timing.username;
-          console.log(request.timing.username);
+          //console.log(request.timing.username);
         }
         
         //console.log(tabList);
 
-        let performance = new performanceRow(request.timing,tab.url);
+        let performance = new performanceRow(request.timing,uuid,tab.url);
             performance.userIP = localIP;
             performance.userExternalIP = remoteIP;
             performance.cUserName = cUserName;
             performance.cUserEmail = cUserEmail;
-        //debugger;
-            send_performanceData2Server(performance.toJSON());
+            
+            console.groupCollapsed("=========performance incoming message==============");
+              console.log(performance);
+            console.groupEnd();
+            //debugger;
+            if(performance.userIP===""){
+                getLocalIPs(function(ips) {
+                  console.log(ips.join('\n '));
+                  localIP = ips[0];
+                  performance.userIP = localIP;
+                  if(performance.userExternalIP===""){
+                    $.getJSON('https://json.geoiplookup.io/api?callback=?', function(data) {
+                      //console.log(data.ip);
+                      remoteIP = data.ip;
+                      performance.userExternalIP = data.ip;
+                      send_performanceData2Server(performance.toJSON());
+                    });
+                  }
+                  else{
+                    send_performanceData2Server(performance.toJSON());
+                  }
+                });
+            }
+            else if(performance.userExternalIP===""){
+              $.getJSON('https://json.geoiplookup.io/api?callback=?', function(data) {
+                //console.log(data.ip);
+                remoteIP = data.ip;
+                performance = data.ip;
+                send_performanceData2Server(performance.toJSON());
+              });
+            } 
+            else{
+              send_performanceData2Server(performance.toJSON());
+            }
+              
+            
       });
       
     }
       
+    //
+
     return true;
   }
 );
@@ -126,7 +163,7 @@ chrome.runtime.onMessage.addListener(
 
 chrome.tabs.onCreated.addListener(function (tab){
       
-      tabList.push(new activityRow(tab.id));
+      tabList.push(new activityRow(tab.id,uuid));
       if(localIP===""){
         getLocalIPs(function(ips) {
           console.log(ips.join('\n '));
@@ -136,7 +173,7 @@ chrome.tabs.onCreated.addListener(function (tab){
       
       if(remoteIP===""){
         $.getJSON('https://json.geoiplookup.io/api?callback=?', function(data) {
-          console.log(data.ip);
+          //console.log(data.ip);
           remoteIP = data.ip;
         });
        
@@ -147,10 +184,12 @@ chrome.tabs.onCreated.addListener(function (tab){
 
 chrome.tabs.onRemoved.addListener(function(tabId, removeInfo){
   console.log('remove tab ' + tabId);
-  console.table(tabList);
+  //console.table(tabList);
 
   var d = new Date();
-  tabList[tabList.findIndex(x => x.key === tabId)].endactivetime = Math.round(d.getTime() / 1000);
+
+  if(tabList.findIndex(x => x.key === tabId)>-1)
+    tabList[tabList.findIndex(x => x.key === tabId)].endactivetime = Math.round(d.getTime() / 1000);
 
   //let connect = new connector();
   //connect.send(remoteAPIURL,tabList[tabList.findIndex(x => x.key === tabId)]);    
@@ -175,20 +214,39 @@ chrome.tabs.onActivated.addListener(function(activeInfo){
 
   if(lastActiveTabID!==activeInfo.tabId && lastActiveTabID!==0){
       chrome.tabs.executeScript(activeInfo.tabId, { file: 'activetab.js'});
-      if(tabList.findIndex(x => x.key === lastActiveTabID)>-1){
-          tabList[tabList.findIndex(x => x.key === lastActiveTabID)].endactivetime = Math.round(d.getTime() / 1000);
-          //send(tabList[tabList.findIndex(x => x.key === lastActiveTabID)]);
-          //let connect = new connector();
-          //connect.send(remoteAPIURL,tabList[tabList.findIndex(x => x.key === lastActiveTabID)]);
-          send_activityData2Server(tabList.findIndex(x => x.key === lastActiveTabID));
-          
-      }
-      tabList[tabList.findIndex(x => x.key === activeInfo.tabId)].startactivetime = Math.round(d.getTime() / 1000);
+        if(tabList.findIndex(x => x.key === lastActiveTabID)>-1){
+            tabList[tabList.findIndex(x => x.key === lastActiveTabID)].endactivetime = Math.round(d.getTime() / 1000);
+            //send(tabList[tabList.findIndex(x => x.key === lastActiveTabID)]);
+            //let connect = new connector();
+            //connect.send(remoteAPIURL,tabList[tabList.findIndex(x => x.key === lastActiveTabID)]);
+            send_activityData2Server(tabList.findIndex(x => x.key === lastActiveTabID));
+            
+        }
+
+        if(tabList.findIndex(x => x.key === activeInfo.tabId)>-1)
+        {
+            tabList[tabList.findIndex(x => x.key === activeInfo.tabId)].startactivetime = Math.round(d.getTime() / 1000);
+        }
+        else //if current active not found
+        {
+          chrome.tabs.get(activeInfo.tabId,tab=>{
+            tabList.push(new activityRow(activeInfo.tabId,uuid,tab.url));
+            console.log("Add new tab to tabList");
+          });
+        }
+      
       //tabList[tabList.findIndex(x => x.key === activeInfo.tabId)].fullurl = encodeURI(tab.url);
       lastActiveTabID = activeInfo.tabId;
       
   }
-  else{
+  else 
+  {
+    if(lastActiveTabID ===0 && tabList.findIndex(x => x.key === activeInfo.tabId)===-1){ //if not found tab and previos active tab ==0
+        chrome.tabs.get(activeInfo.tabId,tab=>{
+          tabList.push(new activityRow(activeInfo.tabId,uuid,tab.url));
+          console.log("Add new tab to tabList");
+        });
+    }
     chrome.tabs.executeScript(activeInfo.tabId, { file: 'activetab.js'});
     lastActiveTabID = activeInfo.tabId;
   }
@@ -252,7 +310,7 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
           }
       }
       else if(domain!=="extensions" && domain!=="newtab"){                
-        tabList.push(new activityRow(tabId,tab.url));
+        tabList.push(new activityRow(tabId,uuid,tab.url));
       }
 
       console.table(tabList);
@@ -281,6 +339,7 @@ chrome.runtime.onInstalled.addListener(function(details){
       uuid = ut.generateUUID();
       chrome.storage.local.set({'uuid': uuid , 'version': thisVersion}, function() {
         console.log('Settings saved');
+        console.log(result.uuid);
       });
 
       chrome.identity.getProfileUserInfo(function(info) {
@@ -293,9 +352,7 @@ chrome.runtime.onInstalled.addListener(function(details){
   else if(details.reason == "update"){
       console.clear();
 
-      //let p = new activityRow();
-      //p.domain = 'Alex';
-      //console.log(p.domain);
+      
 
       console.log("Updated from " + details.previousVersion + " to " + thisVersion + "!");
       //console.log(chrome.identity);
@@ -314,7 +371,7 @@ chrome.runtime.onInstalled.addListener(function(details){
         {
           let ut = new utils();
           uuid = ut.generateUUID();
-
+          console.log(uuid);
           chrome.storage.local.set({'uuid': uuid , 'version': thisVersion}, function() {
             //console.log('Settings saved');
           });
@@ -342,6 +399,7 @@ function send_activityData2Server(rowIndex){
               localobj.localip = localIP;
               if(tabList[rowIndex].validURL(tabList[rowIndex].fullurl))
                 //connect.send(remoteAPIURL,tabList[rowIndex].toJSON());
+                //debugger;
                 connect.send(activityAPIURL,localobj);
           }
           else{
@@ -388,6 +446,6 @@ function getLocalIPs(callback) {
   pc.createOffer(function(sdp) {
       pc.setLocalDescription(sdp);
   }, function onerror() {
-      console.log('winRTC error');
+      console.error('winRTC error');
   });
 }

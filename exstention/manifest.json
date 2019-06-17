@@ -1,8 +1,8 @@
 {
-  "name": "Page load time",
-  "version": "3.0.0",
+  "name": "SaaSMon",
+  "version": "1.0.0",
   "manifest_version": 2,
-  "description": "Displays page load time in the toolbar",
+  "description": "SaaS monitoring & activity solution",
   "background": {
     "scripts": ["background.js","connector.js","utils.js","activityRow.js","performanceRow.js","jquery-3.4.1.min.js"],
     "persistent": false
@@ -18,7 +18,6 @@
     "https://*/*",
     "http://*/*",
     "tabs",
-    "http://localhost:*/",
     "activeTab",
     "storage",
     "identity", 
@@ -30,6 +29,6 @@
     "48": "stopwatch48.png",
     "128": "stopwatch128.png"
   },
-  "content_security_policy": "script-src 'self' https://json.geoiplookup.io; object-src 'self'"
+  "content_security_policy": "script-src 'self' https://app.ycell.net https://json.geoiplookup.io; object-src 'self'"
                              
 }

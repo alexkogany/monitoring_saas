@@ -1,6 +1,6 @@
 class activityRow {
     // class methods
-    constructor(key,url = '') {  
+    constructor(key,uuid='',url = '') {  
         this._key = key;
 
         if(url!==''){
@@ -12,7 +12,15 @@ class activityRow {
             this._startactivetime = Math.round(d.getTime() / 1000);
             this._hashcode =this.hashcode(url);
         }
-
+        if(uuid===''){
+            chrome.storage.local.get('uuid', function (result) {
+                this._uuid = result.uuid;
+                //console.log("uuid->" + this._uuid);
+            });
+        }
+        else{
+            this._uuid = uuid;
+        }
     }
     
 
