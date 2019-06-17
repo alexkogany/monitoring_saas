@@ -3,7 +3,7 @@ var job1 = require('./jobs/jobRenewToken');
 var job2 = require('./jobs/jobGetOrgUsers');
 var job2 = require('./jobs/jobGetOrgUsers');
 var job3 = require('./jobs/jobUserGoogleAppEvents');
-
+var job4 = require('./jobs/jobGetLicense');
 
 //const importModules = require('import-modules');
 
@@ -18,11 +18,17 @@ const runAllJobs = () => {
         job2.runjob();
       });  
 
-    var p = schedule.scheduleJob('*/1 * * * *', function(){
+    var p = schedule.scheduleJob('*/10 * * * *', function(){
         //console.log('Today is recognized by Rebecca Black!');
         var j = new job3();
         j.runjob();
       });  
+
+    var k = schedule.scheduleJob('*/1 * * * *', function(){
+        //console.log('Today is recognized by Rebecca Black!');
+        var j = new job4();
+        j.runjob();
+      });        
 
 }
 

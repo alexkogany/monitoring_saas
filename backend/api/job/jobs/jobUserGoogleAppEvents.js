@@ -22,14 +22,10 @@ class jobUserModule {
                     },
                     function (error, response, body) {
                         if (!error && response.statusCode == 200) {
-                            let eventV;
-                            for (eventV in JSON.parse(body).items)
+                            for (let current_item of JSON.parse(body).items)
                             {
                                
-                               var current_item = JSON.parse(body).items[eventV];
-
-                               
-                               const someFunction = (current_item) => {
+                               //const someFunction = (current_item) => {
                                     sequelize.query(`select record_id from tbl_organization_google_events where "eventuniqueQualifier"='${current_item.id.uniqueQualifier}'`, { type: sequelize.QueryTypes.SELECT} )                               
                                     .then(record_ids=>{
                                             console.log(current_item.id.uniqueQualifier);
@@ -61,13 +57,13 @@ class jobUserModule {
                                                  });
                                                 
                                              }
-                                        });
+                                    });
                                         //.then(records=>{
                                         //        console.log(records);
                                         //});
-                                };
+                                //};
                               
-                                someFunction(current_item);//.then(uid => {
+                                //someFunction(current_item);//.then(uid => {
                                     /* stuff */
                                 //;});
                             }
@@ -75,7 +71,7 @@ class jobUserModule {
                         }
                         else{
                             //console.log(response);
-                            console.log(error);
+                            console.log(body);
                         }
                     }
                 );
