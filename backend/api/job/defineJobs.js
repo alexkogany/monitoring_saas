@@ -8,17 +8,17 @@ var job4 = require('./jobs/jobGetLicense');
 //const importModules = require('import-modules');
 
 const runAllJobs = () => {
-    var j = schedule.scheduleJob('*/1 * * * *', function(){
+    var j = schedule.scheduleJob('*/10 * * * *', function(){
         //console.log('Today is recognized by Rebecca Black!');
         job1.runjob();
       });
 
-    var k = schedule.scheduleJob('*/10 * * * *', function(){
+    var k = schedule.scheduleJob('*/50 * * * *', function(){
         //console.log('Today is recognized by Rebecca Black!');
         job2.runjob();
       });  
 
-    var p = schedule.scheduleJob('*/10 * * * *', function(){
+    var p = schedule.scheduleJob('*/50 * * * *', function(){
         //console.log('Today is recognized by Rebecca Black!');
         var j = new job3();
         j.runjob();

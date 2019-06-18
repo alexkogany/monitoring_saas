@@ -10,7 +10,8 @@ const publicRoutes = {
   'POST /addperformanceRecord': 'performanceController.addperformanceRecord',
   'POST /getperformanceRecords': 'performanceController.getperformanceRecords',
   'POST /getperformanceRecordsByField': 'performanceController.getperformanceRecordsByField',
-  'POST /getperformanceRecordsByField': 'performanceController.getperformanceRecordsByField'
+  'POST /getperformanceRecordsByField': 'performanceController.getperformanceRecordsByField',
+  'POST /login': 'loginController.login'
 };
 
 module.exports = publicRoutes;
