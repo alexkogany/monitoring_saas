@@ -213,9 +213,12 @@ class TopNav extends Component {
 
   render() {
     const { containerClassnames, menuClickCount } = this.props;
-    const { user } = this.props;
+    const {user} = this.props;
     const {messages} = this.props.intl;
+    const {pizdez} = this.props;
 
+    alert(pizdez);
+    console.log(this.props);
     return (
       <nav className="navbar fixed-top">
         <NavLink
@@ -432,13 +435,15 @@ const mapStateToProps = ({ menu, settings, authUser }) => {
   //console.log(menu);
   //console.log(settings);
   //console.log(authUser);
+  //console.log(authUser.user.email);
   //console.log("===========END TopNav===========");
 
   const { containerClassnames, menuClickCount } = menu;
   const { locale } = settings;
-  const { user } = authUser.user;
-
-  return { containerClassnames, menuClickCount,locale,user };
+  const user = authUser.user;
+  const pizdez = "ppppp";
+  console.log(user);
+  return { containerClassnames, menuClickCount,locale,user, pizdez };
 };
 export default injectIntl(connect(
   mapStateToProps,

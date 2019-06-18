@@ -14,6 +14,7 @@ import {
 
 import React from 'react'
 import { channel } from 'redux-saga'
+import {API_URL} from '../../config/config'
 
 //const downloadFileChannel = channel()
 //import postData from '../../util/Utils'
@@ -41,8 +42,9 @@ function* loginWithEmailPassword({ payload }) {
 
         //const json = yield postData('http://127.0.0.1:2017/public/login', {"email": email,"password":password})
         //.then(response => response.json(), ); 
-        let url = "http://127.0.0.1:2017/public/login";
-        let data = {"email": email,"password":password};
+        //console.log(config);
+        let url = API_URL +  "public/login";
+        let data = {"username": email,"password":password};
         const json = yield fetch(url, {
             method: 'POST', // *GET, POST, PUT, DELETE, etc.
             mode: 'cors', // no-cors, cors, *same-origin
@@ -77,7 +79,7 @@ function* loginWithEmailPassword({ payload }) {
         sessionStorage.setItem('user_id', data.token);
         localStorage.setItem('user_email', email);
         yield put({ type: "LOGIN_USER_SUCCESS", json: json });
-        //alert("asdasd");
+        alert("asdasd");
         history.push("/");
 
         //console.log(loginUser);
