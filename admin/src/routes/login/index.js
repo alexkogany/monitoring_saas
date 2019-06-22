@@ -53,7 +53,7 @@ class LoginLayout extends Component {
       //alert(user.password);
       
       console.log(this.props.history);
-
+      
       this.props.loginUser(this.state, this.props.history);
       //this.props.MessageReceived({'papa':'gever'});
     }
@@ -157,9 +157,5 @@ const mapStateToProps = ({ authUser }) => {
   return { user, loading };
 };
 
-export default connect(
-  mapStateToProps,
-  {
-    loginUser
-  }
-)(LoginLayout);
+export default connect(mapStateToProps,{loginUser})
+               (LoginLayout);

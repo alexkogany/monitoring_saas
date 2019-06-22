@@ -217,7 +217,7 @@ class TopNav extends Component {
     const {messages} = this.props.intl;
     const {pizdez} = this.props;
 
-    alert(pizdez);
+  
     console.log(this.props);
     return (
       <nav className="navbar fixed-top">
@@ -441,9 +441,8 @@ const mapStateToProps = ({ menu, settings, authUser }) => {
   const { containerClassnames, menuClickCount } = menu;
   const { locale } = settings;
   const user = authUser.user;
-  const pizdez = "ppppp";
-  console.log(user);
-  return { containerClassnames, menuClickCount,locale,user, pizdez };
+  //console.log(user);
+  return { containerClassnames, menuClickCount,locale,user };
 };
 export default injectIntl(connect(
   mapStateToProps,

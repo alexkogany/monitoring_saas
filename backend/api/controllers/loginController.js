@@ -16,10 +16,15 @@ const loginController = () => {
 
                         sequelize.query(`select * from public.tbl_organization_admin_user WHERE "username"='${username}'`, { type: sequelize.QueryTypes.SELECT})
                         .then(row_result=>{
-                            if(bcryptService().comparePassword(password, row_result[0].password)){
-                              const token = authService().issue({ id: row_result[0].admin_user_id });
-                              return res.status(200).json({ token , email : username });
-                                                     
+                            if(row_result.length>0){
+                                if(bcryptService().comparePassword(password, row_result[0].password)){
+                                  const token = authService().issue({ id: row_result[0].admin_user_id });
+                                  return res.status(200).json({ token , email : username });
+                                                        
+                                }
+                                else{
+                                  return res.status(401).json({ username, password });
+                                }
                             }
                             else{
                               return res.status(401).json({ username, password });

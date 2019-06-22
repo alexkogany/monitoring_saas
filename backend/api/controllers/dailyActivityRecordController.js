@@ -4,7 +4,7 @@ const authService = require('../services/auth.service');
 const bcryptService = require('../services/bcrypt.service');
 const log = require('../log/loggly');
 const sequelize = require('../../config/database');
-
+var cache = require('global-cache');
 
 const dailyActivityRecordController = () => {
   
@@ -13,15 +13,22 @@ const dailyActivityRecordController = () => {
   const addDailyActivityRecord = async (req, res) => {
     try {
       log.send2server(req.body);
+      var application = cache.get(req.body.sDomain);
       // const { sUserName, cUserName } = req.body;
 
       // console.log(sUserName);
       // console.log(cUserName);
 
-      DailyActivityRecord.create(req.body);
+      var request = req.body;
+
+      var application = cache.get(req.body.sDomain);
+      if(application!==undefined)
+        request.application_id = application;    
+
+      DailyActivityRecord.create(request);
 
 
-      return res.status(200).json({});
+      return res.status(200).json({status : "Ok"});
     } catch (err) {
       console.log(err);
       // log.send2server(`{"error":"${err.message}"}`);

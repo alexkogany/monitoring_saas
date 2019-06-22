@@ -25,7 +25,7 @@ const PerformanceRecord = sequelize.define('PerformanceRecord', {
     type: Sequelize.STRING,
   },
   URL: {
-    type: Sequelize.STRING,
+    type: Sequelize.STRING(1024) ,
   },
   Domain: {
     type: Sequelize.STRING,
@@ -65,6 +65,14 @@ const PerformanceRecord = sequelize.define('PerformanceRecord', {
   },
   domContentLoadedEventEnd: {
     type: Sequelize.STRING,
+  },
+  uuid: {
+    type: Sequelize.STRING,
+  },
+  application_id: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    defaultValue: 0
   },
 }, { tableName });
 

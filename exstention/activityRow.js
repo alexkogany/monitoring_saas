@@ -35,6 +35,8 @@ class activityRow {
 
     set fullurl(url) { 
         this._url = url ;
+        const localurl = new URL(url);
+        this.domain = localurl.hostname;
         this._hashcode =this.hashcode(url);
     };
 
@@ -108,6 +110,7 @@ class activityRow {
         return {
             domain: this._domain,
             sRealURL:this._url,
+            sDomain : this._domain,
             sStartTime:this._startactivetime,
             sEndTime:this._endactivetime,
             uuid:this._uuid,

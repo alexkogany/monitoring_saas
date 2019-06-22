@@ -13,7 +13,7 @@ const DailyActivity = sequelize.define('DailyActivity', {
     type: Sequelize.STRING,
   },
   sRealURL: {
-    type: Sequelize.STRING,
+    type: Sequelize.STRING(1024),
   },
   sStartTime: {
     type: Sequelize.INTEGER,
@@ -29,6 +29,11 @@ const DailyActivity = sequelize.define('DailyActivity', {
   },
   Hashcode: {
     type: Sequelize.INTEGER,
+  },
+  application_id: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    defaultValue: 0
   },
 }, { tableName });
 

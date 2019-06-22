@@ -34,6 +34,8 @@ class performanceRow {
     set fullurl(url) { 
         this._url = url ;
         this._hashcode =this.hashcode(url);
+        const localurl = new URL(url);
+        this._domain = localurl.hostname;
     };
 
     get fullurl() { 
@@ -120,7 +122,7 @@ class performanceRow {
                 userIP:this._ip,
                 Hashcode:this._hashcode,
                 URL:this._url,
-                domain:this._domain,
+                Domain:this._domain,
                 sUserName:this.localdata.username,
                 cUserName:this._cUserName,
                 cEmail:this._cEmail,

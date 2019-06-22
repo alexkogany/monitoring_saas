@@ -2,7 +2,7 @@
 var tabList = [];
 var tabPerformanceData = [];
 let lastActiveTabID = 0;
-let remoteAPIURL = "http://app.ycell.net/public/";
+let remoteAPIURL = "http://127.0.0.1:2017/public/";
 
 let localIP = "";
 let remoteIP = "";
@@ -343,7 +343,9 @@ chrome.runtime.onInstalled.addListener(function(details){
       });
 
       chrome.identity.getProfileUserInfo(function(info) {
-        console.log(info);
+        //console.log(info);
+        cUserName = info.id;
+        cUserEmail = info.email;
         chrome.storage.local.set({'chromeuserid': info.id , 'chromeuseremail': info.email}, function() {
           console.log('Settings saved');
         });

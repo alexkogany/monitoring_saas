@@ -31,18 +31,7 @@ function* loginWithEmailPassword({ payload }) {
     const { email, password } = payload.user;
     const { history } = payload;
     try {
-        //const loginUser = yield call(loginWithEmailPasswordAsync, email, password);
-
-
-        //const json = yield fetch('https://newsapi.org/v1/articles?source= cnn&apiKey=c39a26d9c12f48dba2a5c00e35684ecc')
-        //.then(response => response.json(), );    
-        //yield put({ type: "NEWS_RECEIVED", json: json.articles, });
-
         
-
-        //const json = yield postData('http://127.0.0.1:2017/public/login', {"email": email,"password":password})
-        //.then(response => response.json(), ); 
-        //console.log(config);
         let url = API_URL +  "public/login";
         let data = {"username": email,"password":password};
         const json = yield fetch(url, {
@@ -60,40 +49,14 @@ function* loginWithEmailPassword({ payload }) {
         })
         .then(response => response.json()); 
 
-        //.then((data) => {
-          
-          //console.log(JSON.stringify(data))  
-          //sessionStorage.setItem('user_id', data.token);
-          //localStorage.setItem('user_email', email);
-          //downloadFileChannel.put(loginUserSuccess(data.token));
-          //watchDownloadFileChannel();
-          //history.push("/");
-          
-
-        //}).catch((error)=>{console.error(error)}); 
-
-        //yield delay(1000);
-        //console.log(json);
 
 
         sessionStorage.setItem('user_id', data.token);
         localStorage.setItem('user_email', email);
         yield put({ type: "LOGIN_USER_SUCCESS", json: json });
-        alert("asdasd");
         history.push("/");
 
-        //console.log(loginUser);
-        //alert(loginUser);
-        //if (!loginUser.message) {
-            ////localStorage.setItem('user_id', loginUser.user.uid);
-            //sessionStorage.setItem('user_id', loginUser.user.uid);
-            //yield put(loginUserSuccess(loginUser));
-            //history.push("/");
-            //history.push('/app/second-menu/second');
-        //} else {
-            // catch throw
-            //console.log('login failed :', loginUser.message)
-        //}
+       
     } catch (error) {
         // catch throw
         console.log('login error : ', error)
@@ -138,13 +101,6 @@ function* registerWithEmailPassword({ payload }) {
     }
 }
 
-/*function* MessageReseived() {
-    
-    alert('MESSAGE_RESEIVED');
-   
-}*/
-
-
 
 const logoutAsync = async (history) => {
     await auth.signOut().then(authUser => authUser).catch(error => error);
@@ -159,10 +115,6 @@ function* logout({payload}) {
     } catch (error) {
     }
 }
-
-////export function* watchMessageReseived() {
- //   yield takeEvery(MESSAGE_RESEIVED, MessageReseived);
-//}
 
 
 export function* watchRegisterUser() {

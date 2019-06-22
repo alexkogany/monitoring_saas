@@ -12,6 +12,7 @@ var fs = require('fs')
 var rfs = require('rotating-file-stream')
 var path = require('path')
 var jobsD = require('./job/defineJobs')
+var appCache = require('./services/load_cache')
 
 
 
@@ -24,7 +25,8 @@ const auth = require('./policies/auth.policy');
 var logger = require("./log/applog")
 
 jobsD.runAllJobs();
-
+let loadCache = new appCache();
+loadCache.load();
 // environment: development, staging, testing, production
 const environment = process.env.NODE_ENV;
 

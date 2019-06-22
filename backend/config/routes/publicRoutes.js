@@ -11,7 +11,8 @@ const publicRoutes = {
   'POST /getperformanceRecords': 'performanceController.getperformanceRecords',
   'POST /getperformanceRecordsByField': 'performanceController.getperformanceRecordsByField',
   'POST /getperformanceRecordsByField': 'performanceController.getperformanceRecordsByField',
-  'POST /login': 'loginController.login'
+  'POST /login': 'loginController.login',
+  'GET /dashboard/getDailyActivityByDomain':'dashboardController.getDailyActivityByDomain'
 };
 
 module.exports = publicRoutes;

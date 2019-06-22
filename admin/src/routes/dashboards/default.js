@@ -10,6 +10,7 @@ import {
   DropdownToggle,
   DropdownMenu,
   Progress,
+  CardSubtitle,
   CardHeader
 } from "reactstrap";
 import {
@@ -31,6 +32,8 @@ import {
   conversionChartConfig,
   lineChartConfig,
   polarChartConfig,
+ 
+  barChartConfigData,
   smallChartData1,
   smallChartData2,
   smallChartData3,
@@ -40,16 +43,42 @@ import {
 } from "Constants/chartConfig";
 
 import profileStatusData from "Data/dashboard.profile.status.json";
+import { receiveData_last7days } from "../../redux/charts/actions"
+import { connect } from "react-redux";
+
+import ChartComponent, { HorizontalBar } from "react-chartjs-2";
+
+
+
+
+import BarChart from "../../components/Charts/BarChart";
+
+import { ThemeColors } from "Util/ThemeColors";
+const colors = ThemeColors();
+
+
+
 const profileStatuses = profileStatusData.data;
-export default class AnalyticsDashboard extends Component {
+
+class AnalyticsDashboard extends Component {
   constructor(props) {
     super(props);
-    alert("asdasdsa");
+    //console.log(action111111);
+    //alert(addTodo('ssss'));
+    this.props.receiveData_last7days();
+
   }
 
     render() {
       return (
         <Fragment>
+          {/*<Row>
+            <input type="textbox" value={
+              this.props.last7days!==undefined?
+              this.props.last7days.ret_val.length:
+              0
+            } defaultValue=""></input>
+          </Row>*/}
           <Row>
             <Colxx xxs="12">
               <BreadcrumbContainer
@@ -211,8 +240,185 @@ export default class AnalyticsDashboard extends Component {
                 </Colxx>
               </Row>
             </Colxx>
-          </Row>       
+          </Row>    
+
+          <Row className="mb-4">
+              <Colxx xxs="12">
+                <Card>
+                  <CardBody>
+                    <CardTitle>
+                    <IntlMessages id="charts.bar" />
+                    </CardTitle>
+                    <Row>
+                      <Colxx xxs="18" lg="8" className="mb-5">
+                        <CardSubtitle>
+                          <IntlMessages id="charts.shadow" />
+                        </CardSubtitle>
+                        <div className="chart-container">
+                          <BarChart {...barChartConfigData2}/>
+                          {/*<TestChart {...barChartConfigData}/>*/}
+                          {/*<BarShadow {...barChartConfig} />*/}
+                          {/*<ChartComponent type="bar" {...barChartConfig} />*/}
+                        </div>
+                      </Colxx>                      
+                    </Row>
+                  </CardBody>
+                </Card>
+              </Colxx>
+          </Row>   
         </Fragment>
       );
     }
   }
+//labels: ["Papa", "February", "March", "April", "May", "June" ,"Xer"],
+  export const barChartConfigData2 = {
+    data: {
+      labels: [],
+      datasets: [
+        {
+          borderColor: colors.themeColor1,
+          backgroundColor: colors.themeColor1_10,
+          data: [],
+          borderWidth: 2
+        }
+      ]
+    }
+  };
+
+
+   {/* export const barChartConfigoptions2 = {
+    options : {
+      scales: {
+          xAxes: [{
+              barPercentage: 0.5,
+              barThickness: 6,
+              maxBarThickness: 8,
+              minBarLength: 2,
+              gridLines: {
+                  offsetGridLines: false
+              }
+          }]
+        }
+    }
+  };
+
+export class TestChart extends React.Component {
+    
+    state = {
+      options : {
+        legend: {
+          position: "bottom",
+          labels: {
+            padding: 30,
+            usePointStyle: true,
+            fontSize: 12
+          }
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            yAxes: [
+              {
+                gridLines: {
+                  display: true,
+                  lineWidth: 1,
+                  color: "rgba(0,0,0,0.1)",
+                  drawBorder: false
+                },
+                ticks: {
+                  beginAtZero: true,
+                  stepSize: 100,
+                  min: 300,
+                  max: 800,
+                  padding: 20
+                }
+              }
+            ],
+            xAxes: [
+              {
+                gridLines: {
+                  display: false
+                }
+              }
+            ]
+          },
+          tooltips: chartTooltip
+        }
+      }
+    }
+    
+    constructor(props){
+      super(props);            
+    }
+
+
+
+         
+
+    componentWillMount(){                     
+    }
+
+    componentDidMount(){      
+    }
+
+    
+
+    render() {
+      return (
+        
+        <Bar {...this.props} {...this.state} />
+        
+      );
+    }
+
+  }
+
+  export class BarShadow extends React.Component {
+    componentWillMount() {
+      Chart.defaults.barWithShadow = Chart.defaults.bar;
+      Chart.controllers.barWithShadow = Chart.controllers.bar.extend({
+        draw: function(ease) {
+          Chart.controllers.bar.prototype.draw.call(this, ease);
+          var ctx = this.chart.ctx;
+          ctx.save();
+          ctx.shadowColor = "rgba(0,0,0,0.2)";
+          ctx.shadowBlur = 7;
+          ctx.shadowOffsetX = 5;
+          ctx.shadowOffsetY = 7;
+          ctx.responsive = true;
+          Chart.controllers.bar.prototype.draw.apply(this, arguments);
+          ctx.restore();
+        }
+      });
+    }
+  
+    render() {
+      return (
+        <ChartComponent
+          ref={ref => (this.chart_instance = ref && ref.chart_instance)}
+          type="barWithShadow"
+          {...this.props}
+        />
+      );
+    }
+  }*/}
+
+  const mapStateToProps = ({ authUser,chart }) => {
+    const { user, loading } = authUser;
+    const { last7days, testvalue } = chart;
+    
+
+    if(last7days!==undefined){
+      last7days.ret_val.forEach(function(item) {
+        barChartConfigData2.data.labels.push(item.domain_name);
+        barChartConfigData2.data.datasets[0].data.push(item.activity_sum);
+      });
+      
+    }
+
+    return { user, loading , testvalue , last7days};
+  };
+  
+  export default connect(mapStateToProps,{receiveData_last7days})
+                 (AnalyticsDashboard);
