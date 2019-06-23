@@ -26,7 +26,7 @@ class jobGetGoogleLicense {
                         },
                         function (error, response, body) {
                             if (!error && response.statusCode == 200) {
-                                 let body = JSON.parse(body);
+                                 let body2 = JSON.parse(body);
                                 
                                    
                                    //const someFunction = (current_item) => {
@@ -38,10 +38,10 @@ class jobGetGoogleLicense {
                                                      var google_license = {};
                                                      
                                                      google_license.OrganizationID = organization.OrganizationID;
-                                                     google_license.gsuite_basic_total_licenses = body.usageReports[0].parameters[0].intValue;
-                                                     google_license.gsuite_basic_used_licenses = body.usageReports[0].parameters[1].intValue;
+                                                     google_license.gsuite_basic_total_licenses = body2.usageReports[0].parameters[0].intValue;
+                                                     google_license.gsuite_basic_used_licenses = body2.usageReports[0].parameters[1].intValue;
                                                      
-                                                     OrganizationGoogleEvent.create(google_license)
+                                                     OrganizationGoogleLicenseStatus.create(google_license)
                                                      .then(function(data) {
                                                            console.log("create new event sucess." );                                                
                                                      })
@@ -51,10 +51,10 @@ class jobGetGoogleLicense {
                                                     
                                                  }
                                                  else{
-                                                    Book.update(
+                                                    OrganizationGoogleLicenseStatus.update(
                                                         {
-                                                            gsuite_basic_total_licenses: body.usageReports[0].parameters[0].intValue,
-                                                            gsuite_basic_used_licenses: body.usageReports[0].parameters[1].intValue,
+                                                            gsuite_basic_total_licenses: body2.usageReports[0].parameters[0].intValue,
+                                                            gsuite_basic_used_licenses: body2.usageReports[0].parameters[1].intValue,
                                                         },
                                                         { where: { OrganizationID: organization.OrganizationID } }
                                                     );
@@ -62,10 +62,10 @@ class jobGetGoogleLicense {
         
                                                      
                                                     google_license.OrganizationID = organization.OrganizationID;
-                                                    google_license.gsuite_basic_total_licenses = body.usageReports[0].parameters[0].intValue;
-                                                    google_license.gsuite_basic_used_licenses = body.usageReports[0].parameters[1].intValue;
+                                                    google_license.gsuite_basic_total_licenses = body2.usageReports[0].parameters[0].intValue;
+                                                    google_license.gsuite_basic_used_licenses = body2.usageReports[0].parameters[1].intValue;
                                                     
-                                                    OrganizationGoogleEvent.create(google_license)
+                                                    OrganizationGoogleLicenseStatus.create(google_license)
                                                     .then(function(data) {
                                                           console.log("create new event sucess." );                                                
                                                     })
