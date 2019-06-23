@@ -27,9 +27,9 @@ function connector() {
             console.log(data);
         console.groupEnd();
         
-        postData(url , data)
-        .then(data => console.log(JSON.stringify(data))) // JSON-string from `response.json()` call
-        .catch(error => console.error(error));
+        postData(url , data);
+        //.then(data => console.log(JSON.stringify(data))); // JSON-string from `response.json()` call
+        //.catch(error => console.error(error));
     };
     
 };

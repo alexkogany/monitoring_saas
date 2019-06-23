@@ -33,7 +33,7 @@ class jobUserModule {
                                             if(record_ids.length===0){
                                                  var google_new_event = {};
                                                  
-                                                 console.log(current_item.id.uniqueQualifier);
+                                                 //console.log(current_item.id.uniqueQualifier);
                                                 
                                                  google_new_event.kind = current_item.kind;
                                                  google_new_event.eventTime = current_item.id.time;
@@ -49,11 +49,11 @@ class jobUserModule {
                                                  OrganizationGoogleEvent.create(google_new_event)
                                                  .then(function(data) {
                                                        console.log("create new event sucess." );
-                                                       console.log(data)
+                                                       //console.log(data)
                                                  })
                                                  .catch(error=>{
                                                      console.log("create new event unsucess." );
-                                                     console.log(error);
+                                                     //console.log(error);
                                                  });
                                                 
                                              }

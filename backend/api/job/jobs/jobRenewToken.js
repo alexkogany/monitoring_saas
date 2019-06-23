@@ -31,7 +31,7 @@ const renewtoken = () =>{
 
                 OrganizationToken.findAll({ where: { OrganizationID: organizations[0].OrganizationID } }).then(function(org) {
                     console.log("found success");
-                    console.log(org);
+                    //console.log(org);
                     if (org) {
                         org[0].update({
                             OrganizationToken: tokens.access_token

@@ -35,6 +35,9 @@ const DailyActivity = sequelize.define('DailyActivity', {
     allowNull: false,
     defaultValue: 0
   },
+  OrganizationID: {
+    type: Sequelize.STRING,
+  },
 }, { tableName });
 
 // eslint-disable-next-line

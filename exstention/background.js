@@ -1,14 +1,16 @@
 // Setting a toolbar badge text
 var tabList = [];
+var sendRequestList = [];
 var tabPerformanceData = [];
 let lastActiveTabID = 0;
-let remoteAPIURL = "http://127.0.0.1:2017/public/";
+let remoteAPIURL = "http://app.ycell.net/public/";
 
 let localIP = "";
 let remoteIP = "";
 let cUserName ;
 let cUserEmail;
 let uuid;
+let OrganizationID = "12345678";
 
 //let emitter = new EventEmitter();
 // getLocalIPs(function(ips) {
@@ -399,24 +401,53 @@ function send_activityData2Server(rowIndex){
           if(tabList[rowIndex]!=undefined){
               var localobj = tabList[rowIndex].toJSON();
               localobj.localip = localIP;
-              if(tabList[rowIndex].validURL(tabList[rowIndex].fullurl))
-                //connect.send(remoteAPIURL,tabList[rowIndex].toJSON());
-                //debugger;
+              localobj.OrganizationID = OrganizationID;
+              if(tabList[rowIndex].validURL(tabList[rowIndex].fullurl)){
+                sendRequestList.push(localobj.requestid);
                 connect.send(activityAPIURL,localobj);
+              }
           }
           else{
               console.error(`Row index ${rowIndex} not exists.`)
           }
+
+          console.groupCollapsed("Send request list");
+          console.table(sendRequestList);
+          console.groupEnd();
 }
 
 
 function send_performanceData2Server(data){
 
   let connect = new connector();
+  data.OrganizationID = OrganizationID;
   let performanceAPIURL = remoteAPIURL + "addperformanceRecord";
+  if(data.uuid===undefined || data.uuid===""){
+    chrome.storage.local.get('uuid', function (result) {
+      if(result==undefined || result === "")
+        {
+          let ut = new utils();
+          uuid = ut.generateUUID();
+          data.uuid=uuid;
+          chrome.storage.local.set({'uuid': uuid , 'version': thisVersion}, function() {       
+          });
+        }
+        else
+        {
+            uuid = result.uuid
+        };  
 
-
-  connect.send(performanceAPIURL,data);
+        sendRequestList.push(data.requestid);
+        connect.send(performanceAPIURL,data);   
+      });
+  }
+  else{
+    sendRequestList.push(data.requestid);
+    connect.send(performanceAPIURL,data);
+  }
+  console.groupCollapsed("Send request list");
+    console.table(sendRequestList);
+  console.groupEnd();
 }
 
 

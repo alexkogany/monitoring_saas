@@ -74,6 +74,9 @@ const PerformanceRecord = sequelize.define('PerformanceRecord', {
     allowNull: false,
     defaultValue: 0
   },
+  OrganizationID: {
+    type: Sequelize.STRING,
+  },
 }, { tableName });
 
 // eslint-disable-next-line

@@ -32,7 +32,7 @@ class jobUserModule {
                                             if(record_ids.length===0){
                                                  var user_license = {};
                                                  
-                                                 console.log(current_item.userId);
+                                                 //console.log(current_item.userId);
                                                 
                                                  user_license.kind = current_item.kind;
                                                  user_license.OrganizationID = organizations[0].OrganizationID;
@@ -47,11 +47,11 @@ class jobUserModule {
                                                  OrganizationLicense.create(user_license)
                                                  .then(function(data) {
                                                        console.log("create new user with license sucess." );
-                                                       console.log(data)
+                                                       //console.log(data)
                                                  })
                                                  .catch(error=>{
                                                      console.log("create new user with license unsucess." );
-                                                     console.log(error);
+                                                     //console.log(error);
                                                  });
                                                 
                                              }
@@ -61,7 +61,7 @@ class jobUserModule {
                             
                         }
                         else{
-                            console.log(body);
+                            //console.log(body);
                         }
                     }
                 );

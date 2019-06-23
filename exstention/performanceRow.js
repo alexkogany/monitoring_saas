@@ -2,7 +2,7 @@ class performanceRow {
     // class methods
     constructor(data,uuid ='',url = '') {  
         this.localdata = data;        
-        //console.table(data);
+        this._requestid = Math.random().toString(36).substring(2) + (new Date()).getTime().toString(36);
         if(url!==''){
            
             const localurl = new URL(url);
@@ -10,6 +10,7 @@ class performanceRow {
             this._domain = domain;
             this._url = encodeURI(url);            
             this._hashcode =this.hashcode(url);
+
         }
 
         if(uuid!=='')
@@ -28,6 +29,11 @@ class performanceRow {
 
     get domain() { 
         return this._domain;
+    };
+
+
+    get requestid() { 
+        return this._requestid;
     };
 
 
@@ -127,6 +133,7 @@ class performanceRow {
                 cUserName:this._cUserName,
                 cEmail:this._cEmail,
                 uuid:this._uuid,
+                requestid:this._requestid,
             };
         } catch (error) {
             console.error(error);

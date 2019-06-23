@@ -2,7 +2,7 @@ class activityRow {
     // class methods
     constructor(key,uuid='',url = '') {  
         this._key = key;
-
+        this._requestid = Math.random().toString(36).substring(2) + (new Date()).getTime().toString(36);
         if(url!==''){
             var d = new Date();
             const localurl = new URL(url);
@@ -44,6 +44,9 @@ class activityRow {
         return this._url ;
     };
     
+    get requestid() { 
+        return this._requestid;
+    };
 
     set key(tabid) { 
         this._key = tabId;
@@ -115,7 +118,8 @@ class activityRow {
             sEndTime:this._endactivetime,
             uuid:this._uuid,
             sUserName:this._username,
-            Hashcode:this._hashcode
+            Hashcode:this._hashcode,
+            requestid:this._requestid,
         };
       }
 

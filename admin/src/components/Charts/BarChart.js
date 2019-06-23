@@ -43,11 +43,14 @@ class BarChart extends React.Component {
         },
         'onClick' : function (evt, item) {
           console.log("========EVT==========")
-          console.log(evt);
+          //var activePoints = myBar.getElementsAtEvent(evt);
+          //activePoints[0]._model.label 
           console.log("========ITEM==========")
-          console.log(item);
-          console.log(item[0]);
+          //console.log(item);
+          //console.log(item[0]);
           alert(item[0]._model.label);
+
+          history.push("/papa/");
           //alert('asasdas');
         }
       }

@@ -59,8 +59,8 @@ const renewdownloadusers = () =>{
                                 OrganizationUser.create(org_user)
                                 .then(function(data) {
                                     // Return promise here, that will be resolved to 10 after 1 second
-                                   console.log("create" );
-                                   console.log(data);
+                                   //console.log("create" );
+                                   //console.log(data);
                                 })
                                 .catch( error => {
                                     console.error('created function called: ' + error.message );
