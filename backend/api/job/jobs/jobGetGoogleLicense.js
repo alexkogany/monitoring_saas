@@ -18,7 +18,7 @@ class jobGetGoogleLicense {
             organizations.map(function (organization) {
                 var d = new Date();
                 d.setDate(d.getDate()-7);
-                let report_date = format.asString('yyyy-mm-dd',  d);
+                let report_date = format.asString('yyyy-MM-dd',  d);
                 if(organization.OrganizationRefreshToken!==null){
                     request.get({
                         headers: {'Authorization' : 'Bearer ' + organization.OrganizationToken},
