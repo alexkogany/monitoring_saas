@@ -9,14 +9,7 @@ class BarChart extends React.Component {
     
     state = {
       options : {
-        legend: {
-          position: "bottom",
-          labels: {
-            padding: 30,
-            usePointStyle: true,
-            fontSize: 12
-          }
-        },
+        
         options: {
           responsive: true,
           maintainAspectRatio: false,
@@ -47,6 +40,15 @@ class BarChart extends React.Component {
             ]
           },
           tooltips: chartTooltip
+        },
+        'onClick' : function (evt, item) {
+          console.log("========EVT==========")
+          console.log(evt);
+          console.log("========ITEM==========")
+          console.log(item);
+          console.log(item[0]);
+          alert(item[0]._model.label);
+          //alert('asasdas');
         }
       }
     }
