@@ -36,43 +36,48 @@ class jobGetGoogleLicense {
                                                 //return record_ids.length;
                                                 if(record_ids.length===0){
                                                      var google_license = {};
-                                                     
-                                                     google_license.OrganizationID = organization.OrganizationID;
-                                                     google_license.gsuite_basic_total_licenses = body2.usageReports[0].parameters[0].intValue;
-                                                     google_license.gsuite_basic_used_licenses = body2.usageReports[0].parameters[1].intValue;
-                                                     
-                                                     OrganizationGoogleLicenseStatus.create(google_license)
-                                                     .then(function(data) {
-                                                           console.log("create new event sucess." );                                                
-                                                     })
-                                                     .catch(error=>{
-                                                         console.log("create new event unsucess." );                                                
-                                                     });
-                                                    
+                                                     if(body2.usageReports!==undefined && body2.usageReports.length>0){
+                                                            google_license.OrganizationID = organization.OrganizationID;
+                                                            google_license.OrganizationID = organization.OrganizationID;
+                                                            google_license.application_id = 
+                                                            google_license.main_application_id = 
+                                                            google_license.gsuite_basic_total_licenses = body2.usageReports[0].parameters[0].intValue;
+                                                            google_license.gsuite_basic_used_licenses = body2.usageReports[0].parameters[1].intValue;
+                                                            
+                                                            OrganizationGoogleLicenseStatus.create(google_license)
+                                                            .then(function(data) {
+                                                                console.log("create new event sucess." );                                                
+                                                            })
+                                                            .catch(error=>{
+                                                                console.log("create new event unsucess." );                                                
+                                                            });
+                                                     }
                                                  }
                                                  else{
-                                                    OrganizationGoogleLicenseStatus.update(
-                                                        {
-                                                            gsuite_basic_total_licenses: body2.usageReports[0].parameters[0].intValue,
-                                                            gsuite_basic_used_licenses: body2.usageReports[0].parameters[1].intValue,
-                                                        },
-                                                        { where: { OrganizationID: organization.OrganizationID } }
-                                                    );
-                                                      
-        
-                                                     
-                                                    google_license.OrganizationID = organization.OrganizationID;
-                                                    google_license.gsuite_basic_total_licenses = body2.usageReports[0].parameters[0].intValue;
-                                                    google_license.gsuite_basic_used_licenses = body2.usageReports[0].parameters[1].intValue;
-                                                    
-                                                    OrganizationGoogleLicenseStatus.create(google_license)
-                                                    .then(function(data) {
-                                                          console.log("create new event sucess." );                                                
-                                                    })
-                                                    .catch(error=>{
-                                                        console.log("create new event unsucess." );                                                
-                                                    });
-                                                
+
+                                                    if(body2.usageReports!==undefined && body2.usageReports.length>0){
+                                                            OrganizationGoogleLicenseStatus.update(
+                                                                {
+                                                                    gsuite_basic_total_licenses: body2.usageReports[0].parameters[0].intValue,
+                                                                    gsuite_basic_used_licenses: body2.usageReports[0].parameters[1].intValue,
+                                                                },
+                                                                { where: { OrganizationID: organization.OrganizationID } }
+                                                            );
+                                                            
+                
+                                                            var google_license = {};
+                                                            google_license.OrganizationID = organization.OrganizationID;
+                                                            google_license.gsuite_basic_total_licenses = body2.usageReports[0].parameters[0].intValue;
+                                                            google_license.gsuite_basic_used_licenses = body2.usageReports[0].parameters[1].intValue;
+                                                            
+                                                            OrganizationGoogleLicenseStatus.create(google_license)
+                                                            .then(function(data) {
+                                                                console.log("create new event sucess." );                                                
+                                                            })
+                                                            .catch(error=>{
+                                                                console.log("create new event unsucess." );                                                
+                                                            });
+                                                    }
                                                  }
                                         });
                                      

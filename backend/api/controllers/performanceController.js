@@ -16,7 +16,35 @@ const performanceController = () => {
           if(application!==undefined)
             request.application_id = application;    
     
-          PerformanceRecord.create(req.body);
+
+
+
+          let perf_record = {};
+          
+          perf_record.UserName = req.body.sUserName;
+          perf_record.cUserName= req.body.cUserName;
+          perf_record.cUserEmail= req.body.cUserEmail;
+          perf_record.userIP= req.body.userIP;
+          perf_record.userExternalIP= req.body.userExternalIP;
+          perf_record.URL= req.body.URL;
+          perf_record.Domain= req.body.Domain;
+          perf_record.Hashcode= req.body.Hashcode;
+          perf_record.PageLoadTime= req.body.PageLoadTime;
+          perf_record.loadEventStart= req.body.loadEventStart;
+          perf_record.loadEventEnd= req.body.loadEventEnd;
+          perf_record.connectStart= req.body.connectStart;
+          perf_record.connectEnd= req.body.connectEnd;
+          perf_record.requestStart= req.body.requestStart;
+          perf_record.requestEnd= req.body.requestEnd;
+          perf_record.responseStart= req.body.responseStart;
+          perf_record.responseEnd= req.body.responseEnd;
+          perf_record.domContentLoadedEventStart= req.body.domContentLoadedEventStart;
+          perf_record.domContentLoadedEventEnd= req.body.domContentLoadedEventEnd;
+          perf_record.uuid= req.body.uuid;
+          perf_record.application_id= req.body.application_id;
+          perf_record.organization_id= req.body.OrganizationID;
+
+          PerformanceRecord.create(perf_record);
     
     
           return res.status(200).json({status : "Ok"});

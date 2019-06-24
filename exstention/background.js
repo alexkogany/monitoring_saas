@@ -3,7 +3,8 @@ var tabList = [];
 var sendRequestList = [];
 var tabPerformanceData = [];
 let lastActiveTabID = 0;
-let remoteAPIURL = "http://app.ycell.net/public/";
+//let remoteAPIURL = "http://app.ycell.net/public/";
+let remoteAPIURL = "http://127.0.0.1:2017/public/";
 
 let localIP = "";
 let remoteIP = "";

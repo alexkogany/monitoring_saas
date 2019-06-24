@@ -25,7 +25,7 @@ const PerformanceRecord = sequelize.define('PerformanceRecord', {
     type: Sequelize.STRING,
   },
   URL: {
-    type: Sequelize.STRING(1024) ,
+    type: Sequelize.STRING(2048) ,
   },
   Domain: {
     type: Sequelize.STRING,
@@ -37,34 +37,34 @@ const PerformanceRecord = sequelize.define('PerformanceRecord', {
     type: Sequelize.STRING,
   },
   loadEventStart: {
-    type: Sequelize.STRING,
+    type: Sequelize.DECIMAL(10, 2),
   },
   loadEventEnd: {
-    type: Sequelize.STRING,
+    type: Sequelize.DECIMAL(10, 2),
   },
   connectStart: {
-    type: Sequelize.STRING,
+    type: Sequelize.DECIMAL(10, 2),
   },
   connectEnd: {
-    type: Sequelize.STRING,
+    type: Sequelize.DECIMAL(10, 2),
   },
   requestStart: {
-    type: Sequelize.STRING,
+    type: Sequelize.DECIMAL(10, 2),
   },
   requestEnd: {
-    type: Sequelize.STRING,
+    type: Sequelize.DECIMAL(10, 2),
   },
   responseStart: {
-    type: Sequelize.STRING,
+    type: Sequelize.DECIMAL(10, 2),
   },
   responseEnd: {
-    type: Sequelize.STRING,
+    type: Sequelize.DECIMAL(10, 2),
   },
   domContentLoadedEventStart: {
-    type: Sequelize.STRING,
+    type: Sequelize.DECIMAL(10, 2),
   },
   domContentLoadedEventEnd: {
-    type: Sequelize.STRING,
+    type: Sequelize.DECIMAL(10, 2),
   },
   uuid: {
     type: Sequelize.STRING,
@@ -74,7 +74,7 @@ const PerformanceRecord = sequelize.define('PerformanceRecord', {
     allowNull: false,
     defaultValue: 0
   },
-  OrganizationID: {
+  organization_id: {
     type: Sequelize.STRING,
   },
 }, { tableName });

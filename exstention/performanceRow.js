@@ -133,7 +133,7 @@ class performanceRow {
                 cUserName:this._cUserName,
                 cEmail:this._cEmail,
                 uuid:this._uuid,
-                requestid:this._requestid,
+                requestid:this._requestid
             };
         } catch (error) {
             console.error(error);

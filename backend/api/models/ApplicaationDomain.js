@@ -4,17 +4,13 @@ const sequelize = require('../../config/database');
 const tableName = 'tbl_application_domain';
 
 const ApplicationDomain = sequelize.define('ApplicationDomain', {
-    ApplicationId: {
+    application_id: {
     type: Sequelize.INTEGER,
   },
   domain_url: {
     type: Sequelize.STRING,
   },
-  
-  create_time: {
-    type: Sequelize.DATE,
-    defaultValue: Sequelize.NOW
-  },
+
   enable: {
     type: Sequelize.BOOLEAN,
   },

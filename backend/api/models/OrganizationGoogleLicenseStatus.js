@@ -12,6 +12,12 @@ const OrganizationGoogleLicenseStatus = sequelize.define('organization_google_li
   OrganizationID: {
     type: Sequelize.STRING,
   },
+  application_id: {
+    type: Sequelize.INTEGER,
+  },
+  main_application_id: {
+    type: Sequelize.INTEGER,
+  },
   gsuite_basic_total_licenses: {
     type: Sequelize.INTEGER,
   },

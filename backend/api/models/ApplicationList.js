@@ -13,10 +13,10 @@ const Application = sequelize.define('Application', {
     type: Sequelize.STRING,
   },
   
-  create_time: {
+  /*create_time: {
     type: Sequelize.DATE,
     defaultValue: Sequelize.NOW
-  },
+  },*/
   enable: {
     type: Sequelize.BOOLEAN,
   },

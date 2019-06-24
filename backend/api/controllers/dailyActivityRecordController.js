@@ -13,11 +13,8 @@ const dailyActivityRecordController = () => {
   const addDailyActivityRecord = async (req, res) => {
     try {
       log.send2server(req.body);
-      var application = cache.get(req.body.sDomain);
-      // const { sUserName, cUserName } = req.body;
-
-      // console.log(sUserName);
-      // console.log(cUserName);
+     //var application = cache.get(req.body.sDomain);
+      
 
       var request = req.body;
 
