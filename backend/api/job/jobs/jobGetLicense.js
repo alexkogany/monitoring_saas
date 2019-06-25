@@ -11,13 +11,14 @@ class jobUserModule {
     }
 
     runjob(){
-        sequelize.query("select * from tbl_organization_token", { type: sequelize.QueryTypes.SELECT})
+        sequelize.query('select OrganizationToken,OrganizationRefreshToken,organization_id,google_organization_id, from tbl_organization_token tot inner join tbl_organization tbo on tot."OrganizationID"=tbo."organization_id"', { type: sequelize.QueryTypes.SELECT})
         .then(organizations => {
-            let orgid = "C037p6ud8";
-            if(organizations[0].OrganizationRefreshToken!==null){
+            //let orgid = organizations.google_organization_id; //"C037p6ud8";
+
+            organizations.map(organization=>{
                 request.get({
-                    headers: {'Authorization' : 'Bearer ' + organizations[0].OrganizationToken},
-                    url:     `https://www.googleapis.com/apps/licensing/v1/product/Google-Apps/users?customerId=${orgid}&maxResults=50`,                
+                    headers: {'Authorization' : 'Bearer ' + organization.OrganizationToken},
+                    url:     `https://www.googleapis.com/apps/licensing/v1/product/Google-Apps/users?customerId=${organization.google_organization_id}&maxResults=200`,                
                     },
                     function (error, response, body) {
                         if (!error && response.statusCode == 200) {
@@ -30,12 +31,9 @@ class jobUserModule {
                                             console.log(current_item.userId);
                                             //return record_ids.length;
                                             if(record_ids.length===0){
-                                                 var user_license = {};
-                                                 
-                                                 //console.log(current_item.userId);
-                                                
+                                                 var user_license = {};                                               
                                                  user_license.kind = current_item.kind;
-                                                 user_license.OrganizationID = organizations[0].OrganizationID;
+                                                 user_license.OrganizationID = organization.OrganizationID;
                                                  user_license.selfLink = current_item.selfLink;
                                                  user_license.userId = current_item.userId;
                                                  user_license.productId = current_item.productId;
@@ -47,11 +45,9 @@ class jobUserModule {
                                                  OrganizationLicense.create(user_license)
                                                  .then(function(data) {
                                                        console.log("create new user with license sucess." );
-                                                       //console.log(data)
                                                  })
                                                  .catch(error=>{
                                                      console.log("create new user with license unsucess." );
-                                                     //console.log(error);
                                                  });
                                                 
                                              }
@@ -65,8 +61,10 @@ class jobUserModule {
                         }
                     }
                 );
-               
-            }
+            });
+
+
+
         });
 
 

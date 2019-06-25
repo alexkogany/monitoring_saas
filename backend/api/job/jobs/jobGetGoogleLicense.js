@@ -65,7 +65,7 @@ class jobGetGoogleLicense {
                                                             );
                                                             
                 
-                                                            var google_license = {};
+                                                            /*var google_license = {};
                                                             google_license.OrganizationID = organization.OrganizationID;
                                                             google_license.gsuite_basic_total_licenses = body2.usageReports[0].parameters[0].intValue;
                                                             google_license.gsuite_basic_used_licenses = body2.usageReports[0].parameters[1].intValue;
@@ -76,7 +76,7 @@ class jobGetGoogleLicense {
                                                             })
                                                             .catch(error=>{
                                                                 console.log("create new event unsucess." );                                                
-                                                            });
+                                                            });*/
                                                     }
                                                  }
                                         });

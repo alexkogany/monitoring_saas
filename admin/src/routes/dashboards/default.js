@@ -43,7 +43,7 @@ import {
 } from "Constants/chartConfig";
 
 import profileStatusData from "Data/dashboard.profile.status.json";
-import { receiveData_last7days } from "../../redux/charts/actions"
+import { receiveData_last7days,licenseStatus_lastmonth } from "../../redux/charts/actions"
 import { connect } from "react-redux";
 
 import ChartComponent, { HorizontalBar } from "react-chartjs-2";
@@ -52,6 +52,7 @@ import ChartComponent, { HorizontalBar } from "react-chartjs-2";
 
 
 import BarChart from "../../components/Charts/BarChart";
+import HorizontalBar1 from "../../components/Charts/horizontalBar";
 
 import { ThemeColors } from "Util/ThemeColors";
 const colors = ThemeColors();
@@ -66,6 +67,7 @@ class AnalyticsDashboard extends Component {
     //console.log(action111111);
     //alert(addTodo('ssss'));
     this.props.receiveData_last7days();
+    this.props.licenseStatus_lastmonth();
 
   }
 
@@ -265,7 +267,16 @@ class AnalyticsDashboard extends Component {
                   </CardBody>
                 </Card>
               </Colxx>
-          </Row>   
+          </Row>  
+          <Row className="mb-4">
+              <Colxx xxs="12">
+                <Card>
+                  <CardBody>
+                    <HorizontalBar1/>
+                  </CardBody>
+                </Card>
+              </Colxx>
+          </Row>    
         </Fragment>
       );
     }
@@ -286,123 +297,7 @@ class AnalyticsDashboard extends Component {
   };
 
 
-   {/* export const barChartConfigoptions2 = {
-    options : {
-      scales: {
-          xAxes: [{
-              barPercentage: 0.5,
-              barThickness: 6,
-              maxBarThickness: 8,
-              minBarLength: 2,
-              gridLines: {
-                  offsetGridLines: false
-              }
-          }]
-        }
-    }
-  };
-
-export class TestChart extends React.Component {
-    
-    state = {
-      options : {
-        legend: {
-          position: "bottom",
-          labels: {
-            padding: 30,
-            usePointStyle: true,
-            fontSize: 12
-          }
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          scales: {
-            yAxes: [
-              {
-                gridLines: {
-                  display: true,
-                  lineWidth: 1,
-                  color: "rgba(0,0,0,0.1)",
-                  drawBorder: false
-                },
-                ticks: {
-                  beginAtZero: true,
-                  stepSize: 100,
-                  min: 300,
-                  max: 800,
-                  padding: 20
-                }
-              }
-            ],
-            xAxes: [
-              {
-                gridLines: {
-                  display: false
-                }
-              }
-            ]
-          },
-          tooltips: chartTooltip
-        }
-      }
-    }
-    
-    constructor(props){
-      super(props);            
-    }
-
-
-
-         
-
-    componentWillMount(){                     
-    }
-
-    componentDidMount(){      
-    }
-
-    
-
-    render() {
-      return (
-        
-        <Bar {...this.props} {...this.state} />
-        
-      );
-    }
-
-  }
-
-  export class BarShadow extends React.Component {
-    componentWillMount() {
-      Chart.defaults.barWithShadow = Chart.defaults.bar;
-      Chart.controllers.barWithShadow = Chart.controllers.bar.extend({
-        draw: function(ease) {
-          Chart.controllers.bar.prototype.draw.call(this, ease);
-          var ctx = this.chart.ctx;
-          ctx.save();
-          ctx.shadowColor = "rgba(0,0,0,0.2)";
-          ctx.shadowBlur = 7;
-          ctx.shadowOffsetX = 5;
-          ctx.shadowOffsetY = 7;
-          ctx.responsive = true;
-          Chart.controllers.bar.prototype.draw.apply(this, arguments);
-          ctx.restore();
-        }
-      });
-    }
-  
-    render() {
-      return (
-        <ChartComponent
-          ref={ref => (this.chart_instance = ref && ref.chart_instance)}
-          type="barWithShadow"
-          {...this.props}
-        />
-      );
-    }
-  }*/}
+   
 
   const mapStateToProps = ({ authUser,chart }) => {
     const { user, loading } = authUser;
@@ -420,5 +315,5 @@ export class TestChart extends React.Component {
     return { user, loading , testvalue , last7days};
   };
   
-  export default connect(mapStateToProps,{receiveData_last7days})
+  export default connect(mapStateToProps,{receiveData_last7days,licenseStatus_lastmonth})
                  (AnalyticsDashboard);

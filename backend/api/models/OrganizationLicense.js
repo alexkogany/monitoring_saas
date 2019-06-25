@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../../config/database');
 
-const tableName = 'tbl_organization_license';
+const tableName = 'tbl_organization_google_users_license';
 
 const OrganizationLicense = sequelize.define('OrganizationLicense', {
   record_id: {

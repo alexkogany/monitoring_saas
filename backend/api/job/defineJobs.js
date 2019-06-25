@@ -9,7 +9,7 @@ var job5 = require('./jobs/jobGetGoogleLicense');
 //const importModules = require('import-modules');
 
 const runAllJobs = () => {
-    var j = schedule.scheduleJob('*/20 * * * *', function(){
+    var j = schedule.scheduleJob('*/50 * * * *', function(){
         //console.log('Today is recognized by Rebecca Black!');
         job1.runjob();
       });
